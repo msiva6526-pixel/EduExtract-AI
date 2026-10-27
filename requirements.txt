@@ -1,0 +1,23 @@
+# Core Web & UI
+streamlit>=1.30.0
+
+# PDF Extraction
+PyMuPDF>=1.23.0
+
+# NLP, Linguistic Processing & Extractive Summarization
+scikit-learn>=1.3.0
+networkx>=3.0
+nltk>=3.8.0
+numpy>=1.24.0
+scipy>=1.11.0
+
+# Optional NLP / Generative Models (graceful fallback if not present)
+# spacy>=3.7.0
+# torch>=2.1.0
+# transformers>=4.35.0
+# pytesseract>=0.3.10
+
+# Testing & Utilities
+pytest>=7.4.0
+python-dotenv>=1.0.0
+pydantic>=2.0.0

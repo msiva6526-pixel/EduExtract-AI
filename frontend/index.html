@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduExtract AI — Smart Notes & Quiz Generator</title>
+  <meta name="description" content="AI-powered PDF to smart notes, quiz generator and NLP laboratory." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<!-- ── SIDEBAR ─────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">⚡</span>
+    <span class="logo-text">EduExtract<span class="logo-accent">AI</span></span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" data-view="home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="#" class="nav-item" data-view="upload">
+      <svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+      <span>Upload PDF</span>
+    </a>
+    <a href="#" class="nav-item" data-view="notes">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span>Smart Notes</span>
+    </a>
+    <a href="#" class="nav-item" data-view="quiz">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>Quiz</span>
+    </a>
+    <a href="#" class="nav-item" data-view="lab">
+      <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      <span>NLP Lab</span>
+    </a>
+    <a href="#" class="nav-item" data-view="history">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span>History</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-doc-panel" id="sidebarDocPanel">
+    <div class="sdp-label">Active Document</div>
+    <div class="sdp-title" id="activeDocTitle">None</div>
+    <div class="sdp-meta" id="activeDocMeta"></div>
+  </div>
+
+  <div class="sidebar-footer">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusLabel">Local NLP · Ready</span>
+  </div>
+</aside>
+
+<!-- ── MAIN ────────────────────────────────────────────── -->
+<main class="main" id="main">
+
+  <!-- ── TOPBAR ── -->
+  <header class="topbar">
+    <button class="burger" id="burgerBtn">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="topbar-title" id="topbarTitle">Home</div>
+    <div class="topbar-actions">
+      <div class="doc-selector-wrap">
+        <select id="globalDocSelect" class="doc-select">
+          <option value="">— Select Document —</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── VIEWS ──────────────────────────────────────────── -->
+  <div class="view-container" id="viewContainer">
+
+    <!-- HOME -->
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <div class="hero-badge">✦ Local NLP · No API Keys Required</div>
+        <h1 class="hero-title">Turn any PDF into<br/><span class="gradient-text">smart study materials</span></h1>
+        <p class="hero-sub">Upload academic papers, textbooks, or lecture notes and instantly get AI-generated summaries, practice quizzes, and an interactive NLP laboratory — all running locally on your machine.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="App.navigate('upload')">Upload Document →</button>
+          <button class="btn btn-ghost" onclick="App.navigate('lab')">Explore NLP Lab</button>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card" onclick="App.navigate('notes')">
+          <div class="fc-icon">📝</div>
+          <h3>Smart Notes</h3>
+          <p>TF-IDF and TextRank extractive summaries with page citations and keyword extraction.</p>
+          <span class="fc-tag">Extractive · Evidence-Based</span>
+        </div>
+        <div class="feature-card" onclick="App.navigate('quiz')">
+          <div class="fc-icon">🎯</div>
+          <h3>Adaptive Quiz</h3>
+          <p>Definition-pattern MCQs, fill-in-the-blanks, and short-answer questions grounded in source text.</p>
+          <span class="fc-tag">Validated · Grounded</span>
+        </div>
+        <div class="feature-card" onclick="App.navigate('lab')">
+          <div class="fc-icon">🔬</div>
+          <h3>NLP Lab</h3>
+          <p>Step-by-step inspection of tokenization, POS tags, PageRank graph, and neural decoding algorithms.</p>
+          <span class="fc-tag">Interactive · Educational</span>
+        </div>
+        <div class="feature-card" onclick="App.navigate('history')">
+          <div class="fc-icon">📊</div>
+          <h3>Progress Tracker</h3>
+          <p>Score analytics across quiz attempts, document-level history, and answer-level evidence review.</p>
+          <span class="fc-tag">SQLite · Persistent</span>
+        </div>
+      </div>
+
+      <div class="recent-section">
+        <h2 class="section-title">Recent Documents</h2>
+        <div class="doc-list" id="homeDocList"><div class="empty-state">No documents uploaded yet.</div></div>
+      </div>
+    </section>
+
+    <!-- UPLOAD -->
+    <section class="view" id="view-upload">
+      <div class="page-header">
+        <h1>Upload Document</h1>
+        <p>Extract and analyse text from academic PDFs with full page provenance.</p>
+      </div>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".pdf" hidden />
+        <div class="uz-icon">📄</div>
+        <h3>Drag & drop your PDF here</h3>
+        <p>or <span class="link" id="browseLink">browse files</span></p>
+        <p class="uz-hint">Max 25 MB · Up to 100 pages</p>
+      </div>
+      <div class="upload-progress hidden" id="uploadProgress">
+        <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+        <p id="progressLabel">Processing…</p>
+      </div>
+      <div class="card hidden" id="uploadResult">
+        <h3 id="urTitle"></h3>
+        <div class="meta-grid" id="urMeta"></div>
+        <div class="action-row">
+          <button class="btn btn-primary" onclick="App.navigate('notes')">Generate Notes →</button>
+          <button class="btn btn-secondary" onclick="App.navigate('quiz')">Create Quiz →</button>
+          <button class="btn btn-ghost" onclick="App.navigate('lab')">Open NLP Lab →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTES -->
+    <section class="view" id="view-notes">
+      <div class="page-header">
+        <h1>Smart Notes</h1>
+        <p>Extractive summaries with page-level evidence and keyword rankings.</p>
+      </div>
+      <div class="toolbar">
+        <div class="toggle-group" id="methodToggle">
+          <button class="tg-btn active" data-method="tfidf">TF-IDF</button>
+          <button class="tg-btn" data-method="textrank">TextRank</button>
+          <button class="tg-btn" data-method="compare">Compare Both</button>
+        </div>
+        <label class="slider-label">
+          Sentences: <span id="sentSliderVal">7</span>
+          <input type="range" id="sentSlider" min="3" max="20" value="7" />
+        </label>
+        <button class="btn btn-primary btn-sm" id="genNotesBtn">Generate ⚡</button>
+      </div>
+
+      <div id="notesOutput" class="notes-output hidden"></div>
+
+      <div class="download-bar hidden" id="notesDownloadBar">
+        <span>Export:</span>
+        <button class="btn btn-ghost btn-sm" id="dlMd">Markdown .md</button>
+        <button class="btn btn-ghost btn-sm" id="dlTxt">Plain Text .txt</button>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="view" id="view-quiz">
+      <div class="page-header">
+        <h1>Practice Quiz</h1>
+        <p>Evidence-validated questions generated from your document.</p>
+      </div>
+
+      <div id="quizConfig" class="card">
+        <h3>Configure Quiz</h3>
+        <div class="config-grid">
+          <label>MCQ Questions <input type="number" id="cfgMcq" value="4" min="0" max="10" /></label>
+          <label>Fill-in-Blank  <input type="number" id="cfgFitb" value="3" min="0" max="10" /></label>
+          <label>Short Answer   <input type="number" id="cfgShort" value="2" min="0" max="10" /></label>
+        </div>
+        <button class="btn btn-primary" id="generateQuizBtn">Generate Quiz ⚡</button>
+      </div>
+
+      <div class="spinner hidden" id="quizSpinner">
+        <div class="spin-ring"></div><p>Generating validated questions…</p>
+      </div>
+
+      <div id="quizForm" class="hidden"></div>
+
+      <div id="quizResults" class="hidden"></div>
+    </section>
+
+    <!-- NLP LAB -->
+    <section class="view" id="view-lab">
+      <div class="page-header">
+        <h1>NLP Laboratory</h1>
+        <p>Inspect every algorithm step — from raw tokens to neural decoding.</p>
+      </div>
+
+      <div class="lab-tabs">
+        <button class="lab-tab active" data-lab="tokens">Tokens & POS</button>
+        <button class="lab-tab" data-lab="tfidf">TF-IDF</button>
+        <button class="lab-tab" data-lab="textrank">TextRank</button>
+        <button class="lab-tab" data-lab="decoder">Neural Decoder</button>
+      </div>
+
+      <div id="labTokens" class="lab-panel">
+        <button class="btn btn-primary btn-sm" id="loadNlpBtn">Load Analysis ⚡</button>
+        <div id="labTokensContent" class="hidden"></div>
+      </div>
+      <div id="labTfidf" class="lab-panel hidden"></div>
+      <div id="labTextrank" class="lab-panel hidden"></div>
+      <div id="labDecoder" class="lab-panel">
+        <div class="decoder-controls">
+          <h3>Decoder Settings</h3>
+          <div class="dc-grid">
+            <label>Strategy
+              <select id="dcStrategy">
+                <option value="greedy">Greedy</option>
+                <option value="beam_search">Beam Search</option>
+                <option value="top_k">Top-K Sampling</option>
+                <option value="top_p" selected>Top-P Nucleus</option>
+              </select>
+            </label>
+            <label>Temperature <span class="val-badge" id="dcTempVal">1.0</span>
+              <input type="range" id="dcTemp" min="0.1" max="2.0" step="0.1" value="1.0" />
+            </label>
+            <label>Top-K <span class="val-badge" id="dcKVal">5</span>
+              <input type="range" id="dcK" min="1" max="15" step="1" value="5" />
+            </label>
+            <label>Top-P <span class="val-badge" id="dcPVal">0.90</span>
+              <input type="range" id="dcP" min="0.05" max="1.0" step="0.05" value="0.9" />
+            </label>
+            <label>Beam Width <span class="val-badge" id="dcBVal">3</span>
+              <input type="range" id="dcB" min="1" max="6" step="1" value="3" />
+            </label>
+            <label>Max Tokens <span class="val-badge" id="dcMVal">10</span>
+              <input type="range" id="dcM" min="3" max="20" step="1" value="10" />
+            </label>
+          </div>
+          <button class="btn btn-primary" id="runDecoderBtn">Run Decoder ⚡</button>
+        </div>
+        <div id="decoderOutput" class="hidden decoder-output"></div>
+      </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="view" id="view-history">
+      <div class="page-header">
+        <h1>Quiz History</h1>
+        <p>Track your learning progress across past practice sessions.</p>
+      </div>
+      <div id="historyContent">
+        <div class="empty-state">No quiz attempts yet.</div>
+      </div>
+    </section>
+
+  </div><!-- /view-container -->
+</main>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay hidden" id="loadingOverlay">
+  <div class="spin-ring large"></div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
